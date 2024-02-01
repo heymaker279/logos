@@ -1,0 +1,68 @@
+{% extends "main/base.html" %}
+{% load main_tags %}
+{% block aside %}
+  <aside class="categories resizable left">
+    <div class="categories_box">
+      <ul class="categories_list">
+        {% if cat_selected == None %}
+          <li class="categories_item all_categories selected">
+            Bce категории
+          </li>
+        {% else %}
+          <li class="categories_item all_categories "><a class="categories_item_link" href="{% url 'home' %}">Все категории</a></li>
+        {% endif %}
+        {% for cat in cats %}
+          {% if cat.slug == cat_selected %}
+            <li class="categories_item selected">{{ cat.name }}</li>
+          {% else %}
+            <li class="categories_item"><a class="categories_item_link" href="{{ cat.get_absolute_url }}">{{cat.name}}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+{% endblock %}
+{% block content %}
+  <main class="main resizable right">
+    <div class="articles">
+      <ul class="article_list">
+				{% for prod in object %}
+        <li class="product_details_item">
+          <img class="product_item_picture" src={{ prod.product.image.url }}/>
+          <div class="product_item_link_text_box">
+            <p class="product_link" >
+              {{ prod|title }}
+            </p>
+          </div>
+              <form class="form_box" action="{% url 'home' %}" method="post">
+                <div class="product_parameter_form_box">
+                  <span class="count-form-hint">Размеры
+                    <div class="form-view" >
+                      {% if parameter %}
+                        {% for p in parameter %}
+                          <h4>{{ p }}</h4>
+                        {% endfor %}
+                      {% else %}
+                        <p>Уточняйте у менеджера</p>
+                      {% endif %}
+                    </div>
+                  </span>
+                  <span class="count-form-hint">Цена
+                    <div class="form-view" >
+                      {% if parameter %}
+                        {% for p in parameter %}
+                          <h4>{{ p.price }}</h4>
+                        {% endfor %}
+                      {% else %}
+                        <p>Уточняйте у менеджера</p>
+                      {% endif %}
+                    </div>
+                  </span>
+                </div>
+              </form>
+        </li>
+				{% endfor %}
+      </ul>
+    </div>
+  </main>
+{% endblock %}

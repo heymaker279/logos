@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load main_tags %}
+{% block aside %}
+	<aside class="categories resizable left">
+		<div class="categories_box">
+			<ul class="categories_list">
+				{% if cat_selected == None %}
+					<li class="categories_item all_categories selected">
+						Bce категории
+					</li>
+				{% else %}
+					<li class="categories_item all_categories "><a class="categories_item_link" href="{% url 'catalog' %}">Все категории</a></li>
+				{% endif %}
+				{% for cat in cats %}
+					{% if cat.slug == cat_selected %}
+						<li class="categories_item selected">{{ cat.name }}</li>
+					{% else %}
+						<li class="categories_item"><a class="categories_item_link" href="{{ cat.get_absolute_url }}">{{cat.name}}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</aside>
+{% endblock %}
+
+{% block content %}
+	<main class="main resizable right">
+		<div class="articles">
+			<ul class="article_list">
+				{% for prod in products %}
+					{% if prod %}
+						<li class="product_item">
+							<a href="{{ prod.get_absolute_url }}" class="product_link">
+								<img class="product_item_picture" src={{ prod.product.image.url }}/>
+								<div class="product_item_link_text_box">
+									{{ prod|title }}
+								</div>
+							</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</main>
+{% endblock %}

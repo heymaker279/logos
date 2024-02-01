@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% block content %}
+<div class="news">
+  <ul class="news_list">
+    {% for n in news %}
+      <li class="news_item">
+        <div class="news_photo_box">
+          <img class="article_item_picture catalog" src={{ n.image.url }}/>
+        </div>
+        <div class="news_text_box">
+          <h6 class="news_text_created_at">
+            {{ n.created_at }}
+          </h6>
+          <h5 class="news_text_title">
+            {{ n.title.capitalize }}
+          </h5>
+          <p class="news_text_description">
+            {{ n.description }}
+          </p>
+          <p class="news_text_link">
+            {{ n.link }}
+          </p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ title }}</title>
+	<!-- <link type="text/css" href="{% static 'main/css/styles.css' %}" rel="stylesheet" /> -->
+	<link rel="stylesheet" href="../../static/main/css/styles.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'main/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <script src="../../static/main/js/main.js" defer></script> -->
+</head>
+<body>
+{% block mainmenu %}
+	<header class="header">
+		<div class="banner">
+			<img src="{% static '/main/images/banner-bg.jpg'%}" alt="background image" class="banner_image">
+			<img src="{% static '/main/images/header-shadow.jpg'%}" alt="background image shadow" class="banner-image-shadow">
+		</div>
+		<nav class="menu">
+			<a class="logo" href="{% url 'home' %}">
+				<img src="../../static/main/images/logo.png" alt="logo" class="logo-png">
+			</a>
+			<ul class="menu-list">
+				{% for m in menu %}
+					<li class="menu-list__item"><a href="{{ m.get_absolute_url }}" class="menu-link">
+					{{ m.title }}
+					</a></li>
+				{% endfor %}
+					<li class="menu-list__item">
+						<a href="{% url 'login' %}" class="menu-link">Войти</a> | <a href="{% url 'register' %}" class="menu-link">Регистрация</a>
+					</li>
+
+			</ul>
+		</nav>
+		<div class="intro">
+			<!-- <h1 class="header__title">
+				LogosMetall
+			</h1> -->
+		</div>
+	</header>
+
+{% endblock mainmenu %}
+
+{% block content %}
+
+{% endblock %}
+</body>
+</html>

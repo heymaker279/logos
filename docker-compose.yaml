@@ -1,0 +1,66 @@
+version: '3.9'
+volumes:
+  pgdata:
+networks:
+  backend:
+services:
+
+  redis:
+    networks:
+      - backend
+    image: redis
+    ports:
+      - "6379:6379"
+
+  db:
+    networks:
+      - backend
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./logs:/var/log
+    image: postgres:14.5-alpine3.16
+    ports:
+    - "5439:5432"
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d shopping_service"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+#  nginx:
+#    networks:
+#      - backend
+#    image: nginx:1.21-alpine
+#    volumes:
+#      - static_volume:/var/www/html/static
+#      - ./nginx:/etc/nginx/conf.d
+#    ports:
+#      - 80:80
+#    depends_on:
+#      - web
+#
+#  web:
+#    networks:
+#      - backend
+#    build: .
+#    volumes:
+#      - static_volume:/usr/src/app/static
+#      - '.:/usr/src/app/'
+#    depends_on:
+#      - db # старт после старта контейнера postgres
+#    ports:
+#      - 8080:8000
+#    restart: unless-stopped
+#
+##    command: sh -c "chmod +x /usr/src/app/entrypoint.sh "
+##    entrypoint: ["/usr/src/app/entrypoint.sh"]
+#    env_file:
+#      - ./.env

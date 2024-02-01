@@ -1,0 +1,11 @@
+{% extends "main/base.html" %}
+{% load main_tags %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="register_form">
+  {% csrf_token %}
+  <p>email{{ log_form.email }}</p>
+  <p>password{{ log_form.password }}</p>
+  <button type="submit">Login</button>
+</form>
+{% endblock %}

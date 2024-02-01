@@ -1,0 +1,11 @@
+{% for cat in cats %}
+  {% if cat.slug == cat_selected %}
+    <li class="categories_item selected">{{ cat.name }}</li>
+  {% else %}
+    <li class="categories_item"><a class="categories_item_link" href="{{ cat.get_absolute_url }}">{{cat.name}}</a></li>
+  {% endif %}
+{% endfor %}
+
+
+
+				{% show_categories 'name' cat_selected %}

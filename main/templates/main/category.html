@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block content %}
+<h1>{{ category.name }}</h1>
+<main>
+  <div class="articles">
+    <ul class="article_list">
+      {% for product in products %}
+        {% if product %}
+          <li class="article_item catalog">
+            <a class="article_item_link catalog" href="{{ product.get_absolute_url }}">
+<!--            <a class="article_item_link catalog" href="{% url 'catalog' %}">-->
+              <img class="article_item_picture catalog" src={{ product.image.url }}/>
+              <div class="article_item_link_text_box">
+                <h5 class="article_item_link_text catalog">{{ product.name }}</h5>
+              </div>
+
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+</div>
+</main>
+{% endblock %}

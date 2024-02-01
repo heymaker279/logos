@@ -1,0 +1,56 @@
+{% load static %}
+{% load main_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ title }}</title>
+	<link type="text/css" href="{% static 'main/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'main/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <script src="../../static/main/js/main.js" defer></script> -->
+</head>
+<body>
+	<img src="{% static '/main/images/bg2.jpg'%}" alt="background image" class="background"> 
+	<div class="background-shadow"></div>
+	<!-- <img src="{% static '/main/images/background-shadow.jpg'%}" alt="background image shadow" class="background-shadow"> -->
+{% block mainmenu %}
+	<header class="header">
+		<div class="banner">
+			<!-- <img src="{% static '/main/images/banner-bg.jpg'%}" alt="background image" class="banner_image"> -->
+			<!-- <img src="{% static '/main/images/Background2.jpg'%}" alt="background image" class="banner_image">  -->
+			<!-- <img src="{% static '/main/images/header-shadow.jpg'%}" alt="background image shadow" class="banner-image-shadow"> -->
+		</div> 
+		<nav class="menu">
+ 			<a class="logo" href="{% url 'home' %}">
+				<span class="logo-png">Logos</span>
+				<!-- <img src="../../static/main/images/logo.png" alt="logo" class="logo-png">
+				<img src="{% static '/main/images/logo.png'%}" alt="logo" class="logo-png">-->
+			</a>
+			<ul class="menu-list">
+				{% for m in menu %}
+					<li class="menu-list__item"><a href="{{ m.url_name }}" class="menu-link">
+					{{ m.title }}
+					</a></li>
+				{% endfor %}
+			</ul>
+		</nav>
+<!-- 		<div class="intro">
+			<h1 class="header__title">
+				LogosMetall
+			</h1>
+		</div> -->
+	</header>
+{% endblock mainmenu %}
+{% block aside %}
+
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+
+<!--	<link rel="stylesheet" href="../../static/main/css/styles.css">-->
+
+</body>
+</html>
